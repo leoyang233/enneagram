@@ -1,0 +1,95 @@
+<view class="container">
+  <!-- Result Header -->
+  <view class="result-header">
+    <view class="result-badge">测试结果</view>
+    <view class="type-icon-large" style="background: {{primaryType.color}}20">
+      {{primaryType.icon}}
+    </view>
+    <view class="type-name-large">{{primaryType.name}}</view>
+    <view class="type-english">{{primaryType.englishName}}</view>
+    <view class="type-number">{{primaryType.id}}号人格</view>
+  </view>
+
+  <!-- Score Distribution -->
+  <view class="card score-card">
+    <view class="card-title">📊 得分分布</view>
+    <view class="score-bars">
+      <view class="score-bar-item" wx:for="{{sortedScores}}" wx:key="type">
+        <view class="bar-label">{{item.name}}</view>
+        <view class="bar-container">
+          <view class="bar-fill" style="width: {{item.percentage}}%; background: {{item.color}}">
+          </view>
+        </view>
+        <view class="bar-value">{{item.score}}</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- Primary Type Info -->
+  <view class="card type-card" style="border-left: 8rpx solid {{primaryType.color}}">
+    <view class="type-header">
+      <view class="type-title">🎯 核心特征</view>
+    </view>
+    <view class="keywords">
+      <text class="keyword" wx:for="{{primaryType.keywords}}" wx:key="*this">{{item}}</text>
+    </view>
+    <view class="type-desc">{{primaryType.description}}</view>
+  </view>
+
+  <!-- Strengths & Weaknesses -->
+  <view class="card traits-card">
+    <view class="traits-section">
+      <view class="traits-title" style="color: #27AE60">✨ 优势</view>
+      <view class="traits-list">
+        <view class="trait-item" wx:for="{{primaryType.strengths}}" wx:key="*this">
+          <text class="trait-dot" style="background: #27AE60"></text>
+          <text class="trait-text">{{item}}</text>
+        </view>
+      </view>
+    </view>
+    <view class="traits-section">
+      <view class="traits-title" style="color: #E74C3C">⚠️ 成长点</view>
+      <view class="traits-list">
+        <view class="trait-item" wx:for="{{primaryType.weaknesses}}" wx:key="*this">
+          <text class="trait-dot" style="background: #E74C3C"></text>
+          <text class="trait-text">{{item}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- Motivation -->
+  <view class="card motivation-card">
+    <view class="card-title">💫 核心动机</view>
+    <view class="motivation-text">{{primaryType.motivation}}</view>
+  </view>
+
+  <!-- Secondary Type -->
+  <view class="card secondary-card" wx:if="{{secondaryType}}">
+    <view class="card-title">🌟 次要类型</view>
+    <view class="secondary-info">
+      <view class="secondary-icon" style="background: {{secondaryType.color}}20">
+        {{secondaryType.icon}}
+      </view>
+      <view class="secondary-detail">
+        <view class="secondary-name">{{secondaryType.name}} ({{secondaryType.id}}号)</view>
+        <view class="secondary-desc">{{secondaryType.description}}</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- Actions -->
+  <view class="action-buttons">
+    <button class="btn-primary" bindtap="viewAllTypes">
+      查看所有类型
+    </button>
+    <button class="btn-secondary" bindtap="retakeTest">
+      重新测试
+    </button>
+  </view>
+
+  <!-- Share Tip -->
+  <view class="share-tip">
+    点击右上角「···」可分享给朋友
+  </view>
+</view>

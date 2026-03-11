@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>测试结果 - 九型人格分析</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <span class="nav-icon">🔮</span>
+            <span class="nav-title">九型人格</span>
+        </div>
+        <ul class="nav-menu">
+            <li><a href="index.html">首页</a></li>
+            <li><a href="test.html">开始测试</a></li>
+            <li><a href="types.html">人格类型</a></li>
+        </ul>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <main class="container">
+        <!-- Result Header -->
+        <section class="result-header">
+            <span class="result-badge">测试结果</span>
+            <div class="type-icon-large" id="primaryIcon" style="background: #6B5B9520">🔮</div>
+            <h1 class="type-name-large" id="primaryName">加载中...</h1>
+            <p class="type-english" id="primaryEnglish">-</p>
+            <span class="type-number-badge" id="primaryNumber">-号人格</span>
+        </section>
+
+        <!-- Score Distribution -->
+        <section class="card">
+            <h2 class="card-title">📊 得分分布</h2>
+            <div class="score-bars" id="scoreBars"></div>
+        </section>
+
+        <!-- Primary Type Info -->
+        <section class="card type-card" id="primaryCard">
+            <h2 class="card-title">🎯 核心特征</h2>
+            <div class="keywords" id="keywords"></div>
+            <p class="type-desc" id="primaryDesc"></p>
+        </section>
+
+        <!-- Strengths & Weaknesses -->
+        <section class="card traits-card">
+            <div class="traits-section">
+                <h3 class="traits-title" style="color: #27AE60">✨ 优势</h3>
+                <ul class="traits-list" id="strengthsList"></ul>
+            </div>
+            <div class="traits-section">
+                <h3 class="traits-title" style="color: #E74C3C">⚠️ 成长点</h3>
+                <ul class="traits-list" id="weaknessesList"></ul>
+            </div>
+        </section>
+
+        <!-- Motivation -->
+        <section class="card motivation-card">
+            <h2 class="card-title">💫 核心动机</h2>
+            <p class="motivation-text" id="motivationText"></p>
+        </section>
+
+        <!-- Secondary Type -->
+        <section class="card" id="secondaryCard" style="display: none;">
+            <h2 class="card-title">🌟 次要类型</h2>
+            <div class="secondary-info" id="secondaryInfo"></div>
+        </section>
+
+        <!-- Actions -->
+        <section class="action-section">
+            <a href="types.html" class="btn btn-primary">查看所有类型</a>
+            <a href="test.html" class="btn btn-secondary">重新测试</a>
+        </section>
+
+        <!-- Share -->
+        <section class="share-section">
+            <p>分享给你的朋友，一起探索人格类型</p>
+            <button class="btn btn-secondary" onclick="copyLink()">复制链接</button>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>© 2024 九型人格分析 - 探索真实的自己</p>
+    </footer>
+
+    <script src="data.js"></script>
+    <script>
+        // Load result
+        const resultData = localStorage.getItem('enneagramResult');
+        if (!resultData) {
+            window.location.href = 'test.html';
+        }
+        
+        const result = JSON.parse(resultData);
+        const primaryType = enneagramData.types.find(t => t.id === result.primaryType);
+        const secondaryType = result.secondaryType ? 
+            enneagramData.types.find(t => t.id === result.secondaryType) : null;
+
+        // Render primary type header
+        document.getElementById('primaryIcon').textContent = primaryType.icon;
+        document.getElementById('primaryIcon').style.background = primaryType.color + '20';
+        document.getElementById('primaryName').textContent = primaryType.name;
+        document.getElementById('primaryEnglish').textContent = primaryType.englishName;
+        document.getElementById('primaryNumber').textContent = primaryType.id + '号人格';
+        document.getElementById('primaryCard').style.borderLeftColor = primaryType.color;
+
+        // Render score bars
+        const scoreBars = document.getElementById('scoreBars');
+        const sortedScores = Object.keys(result.scores)
+            .map(typeId => {
+                const type = enneagramData.types.find(t => t.id === parseInt(typeId));
+                return {
+                    name: type.name,
+                    score: result.scores[typeId],
+                    color: type.color,
+                    percentage: result.percentages[typeId]
+                };
+            })
+            .sort((a, b) => b.score - a.score);
+        
+        sortedScores.forEach(item => {
+            const bar = document.createElement('div');
+            bar.className = 'score-bar-item';
+            bar.innerHTML = `
+                <span class="bar-label">${item.name}</span>
+                <div class="bar-container">
+                    <div class="bar-fill" style="width: ${item.percentage}%; background: ${item.color}"></div>
+                </div>
+                <span class="bar-value">${item.score}</span>
+            `;
+            scoreBars.appendChild(bar);
+        });
+
+        // Render keywords
+        const keywordsEl = document.getElementById('keywords');
+        primaryType.keywords.forEach(kw => {
+            const span = document.createElement('span');
+            span.className = 'keyword';
+            span.textContent = kw;
+            keywordsEl.appendChild(span);
+        });
+
+        // Render description
+        document.getElementById('primaryDesc').textContent = primaryType.description;
+
+        // Render strengths
+        const strengthsList = document.getElementById('strengthsList');
+        primaryType.strengths.forEach(item => {
+            const li = document.createElement('li');
+            li.innerHTML = `<span class="trait-dot" style="background: #27AE60"></span>${item}`;
+            strengthsList.appendChild(li);
+        });
+
+        // Render weaknesses
+        const weaknessesList = document.getElementById('weaknessesList');
+        primaryType.weaknesses.forEach(item => {
+            const li = document.createElement('li');
+            li.innerHTML = `<span class="trait-dot" style="background: #E74C3C"></span>${item}`;
+            weaknessesList.appendChild(li);
+        });
+
+        // Render motivation
+        document.getElementById('motivationText').textContent = primaryType.motivation;
+
+        // Render secondary type
+        if (secondaryType) {
+            document.getElementById('secondaryCard').style.display = 'block';
+            document.getElementById('secondaryInfo').innerHTML = `
+                <div class="secondary-icon" style="background: ${secondaryType.color}20">
+                    ${secondaryType.icon}
+                </div>
+                <div class="secondary-detail">
+                    <div class="secondary-name">${secondaryType.name} (${secondaryType.id}号)</div>
+                    <div class="secondary-desc">${secondaryType.description}</div>
+                </div>
+            `;
+        }
+
+        function copyLink() {
+            navigator.clipboard.writeText(window.location.href).then(() => {
+                alert('链接已复制到剪贴板！');
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,162 @@
+.hero-section {
+  text-align: center;
+  padding: 60rpx 0;
+}
+
+.hero-icon {
+  font-size: 120rpx;
+  margin-bottom: 20rpx;
+}
+
+.hero-title {
+  font-size: 56rpx;
+  font-weight: bold;
+  color: var(--primary-color);
+  margin-bottom: 16rpx;
+}
+
+.hero-subtitle {
+  font-size: 28rpx;
+  color: var(--light-text);
+}
+
+.intro-card {
+  background: linear-gradient(135deg, var(--primary-color), #8B7BB5);
+  color: white;
+}
+
+.intro-card .title {
+  color: white;
+  font-size: 36rpx;
+}
+
+.intro-card .subtitle {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 26rpx;
+  line-height: 1.8;
+}
+
+.stats-row {
+  display: flex;
+  justify-content: space-around;
+  margin: 40rpx 0;
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-number {
+  font-size: 48rpx;
+  font-weight: bold;
+  color: var(--primary-color);
+}
+
+.stat-label {
+  font-size: 24rpx;
+  color: var(--light-text);
+  margin-top: 8rpx;
+}
+
+.action-card {
+  text-align: center;
+  padding: 50rpx 40rpx;
+}
+
+.action-title {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: var(--text-color);
+  margin-bottom: 16rpx;
+}
+
+.action-desc {
+  font-size: 26rpx;
+  color: var(--light-text);
+  margin-bottom: 40rpx;
+}
+
+.start-btn {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.section-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: var(--text-color);
+  margin: 40rpx 0 20rpx 10rpx;
+}
+
+.type-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20rpx;
+}
+
+.type-item {
+  background: white;
+  border-radius: 16rpx;
+  padding: 30rpx 20rpx;
+  text-align: center;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+}
+
+.type-icon {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40rpx;
+  margin: 0 auto 16rpx;
+}
+
+.type-name {
+  font-size: 26rpx;
+  color: var(--text-color);
+  font-weight: 500;
+}
+
+.type-num {
+  font-size: 22rpx;
+  color: var(--light-text);
+  margin-top: 8rpx;
+}
+
+.feature-list {
+  margin-bottom: 40rpx;
+}
+
+.feature-item {
+  display: flex;
+  align-items: flex-start;
+  background: white;
+  border-radius: 16rpx;
+  padding: 30rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+}
+
+.feature-icon {
+  font-size: 48rpx;
+  margin-right: 24rpx;
+}
+
+.feature-content {
+  flex: 1;
+}
+
+.feature-title {
+  font-size: 30rpx;
+  font-weight: bold;
+  color: var(--text-color);
+  margin-bottom: 8rpx;
+}
+
+.feature-desc {
+  font-size: 24rpx;
+  color: var(--light-text);
+  line-height: 1.5;
+}

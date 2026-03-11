@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>九型人格分析 - 探索真实的自己</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <span class="nav-icon">🔮</span>
+            <span class="nav-title">九型人格</span>
+        </div>
+        <ul class="nav-menu">
+            <li><a href="index.html" class="active">首页</a></li>
+            <li><a href="test.html">开始测试</a></li>
+            <li><a href="types.html">人格类型</a></li>
+        </ul>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <main class="container">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-icon">🔮</div>
+            <h1 class="hero-title">九型人格</h1>
+            <p class="hero-subtitle">探索真实的自己，理解深层的动机</p>
+            <a href="test.html" class="btn btn-primary btn-large">立即开始测试</a>
+        </section>
+
+        <!-- Introduction -->
+        <section class="card intro-card">
+            <h2 class="card-title">什么是九型人格？</h2>
+            <p class="card-text">
+                九型人格（Enneagram）是一种描述人类性格类型的系统，将人格分为九种基本类型。它帮助我们了解自己的核心动机、恐惧和行为模式，从而促进个人成长和人际关系的发展。
+            </p>
+        </section>
+
+        <!-- Stats -->
+        <section class="stats-section">
+            <div class="stat-item">
+                <div class="stat-number">9</div>
+                <div class="stat-label">人格类型</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">36</div>
+                <div class="stat-label">测试题目</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">3min</div>
+                <div class="stat-label">测试时长</div>
+            </div>
+        </section>
+
+        <!-- Type Preview -->
+        <section class="section">
+            <h2 class="section-title">九种人格类型</h2>
+            <div class="type-grid" id="typeGrid">
+                <!-- Types will be loaded by JS -->
+            </div>
+        </section>
+
+        <!-- Features -->
+        <section class="section">
+            <h2 class="section-title">功能特色</h2>
+            <div class="feature-list">
+                <div class="feature-item">
+                    <div class="feature-icon">📊</div>
+                    <div class="feature-content">
+                        <h3>专业测评</h3>
+                        <p>基于经典九型人格理论设计的36道专业测试题</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">📚</div>
+                    <div class="feature-content">
+                        <h3>详细解析</h3>
+                        <p>深入了解每种人格类型的特征、优势与成长方向</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">💡</div>
+                    <div class="feature-content">
+                        <h3>自我觉察</h3>
+                        <p>帮助你认识自己，理解行为背后的深层动机</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="cta-section">
+            <h2>🎯 开始你的探索之旅</h2>
+            <p>通过36道专业题目，发现属于你的核心人格类型</p>
+            <a href="test.html" class="btn btn-primary">立即测试</a>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>© 2024 九型人格分析 - 探索真实的自己</p>
+    </footer>
+
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+    <script>
+        // Load type preview on homepage
+        document.addEventListener('DOMContentLoaded', () => {
+            const typeGrid = document.getElementById('typeGrid');
+            enneagramData.types.forEach(type => {
+                const item = document.createElement('a');
+                item.href = `detail.html?id=${type.id}`;
+                item.className = 'type-item';
+                item.innerHTML = `
+                    <div class="type-icon-small" style="background: ${type.color}20; color: ${type.color}">
+                        ${type.icon}
+                    </div>
+                    <div class="type-name">${type.name}</div>
+                    <div class="type-num">${type.id}号</div>
+                `;
+                typeGrid.appendChild(item);
+            });
+        });
+    </script>
+</body>
+</html>

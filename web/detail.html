@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>详细解析 - 九型人格分析</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <span class="nav-icon">🔮</span>
+            <span class="nav-title">九型人格</span>
+        </div>
+        <ul class="nav-menu">
+            <li><a href="index.html">首页</a></li>
+            <li><a href="test.html">开始测试</a></li>
+            <li><a href="types.html">人格类型</a></li>
+        </ul>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <main class="container">
+        <!-- Header -->
+        <section class="detail-header" id="detailHeader">
+            <div class="header-content">
+                <div class="type-icon-large" id="headerIcon">🔮</div>
+                <h1 class="type-name" id="headerName">-</h1>
+                <p class="type-english" id="headerEnglish">-</p>
+                <span class="type-num" id="headerNum">-号人格</span>
+            </div>
+        </section>
+
+        <!-- Overview -->
+        <section class="card">
+            <h2 class="card-title">概述</h2>
+            <p class="overview-text" id="overviewText"></p>
+            <div class="keywords" id="keywords"></div>
+        </section>
+
+        <!-- Motivation -->
+        <section class="card motivation-card">
+            <h2 class="card-title">💫 核心动机</h2>
+            <p class="motivation-content" id="motivationContent"></p>
+        </section>
+
+        <!-- Strengths -->
+        <section class="card">
+            <h2 class="card-title">✨ 核心优势</h2>
+            <ul class="trait-list" id="strengthsList"></ul>
+        </section>
+
+        <!-- Weaknesses -->
+        <section class="card">
+            <h2 class="card-title">⚠️ 成长挑战</h2>
+            <ul class="trait-list" id="weaknessesList"></ul>
+        </section>
+
+        <!-- Growth Tips -->
+        <section class="card growth-card">
+            <h2 class="card-title">🌱 成长建议</h2>
+            <div class="growth-tips" id="growthTips"></div>
+        </section>
+
+        <!-- Relationship Tips -->
+        <section class="card">
+            <h2 class="card-title">💕 人际关系建议</h2>
+            <div class="relationship-tips">
+                <div class="rel-section">
+                    <h4 class="rel-title">在恋爱中：</h4>
+                    <p class="rel-text" id="loveText"></p>
+                </div>
+                <div class="rel-section">
+                    <h4 class="rel-title">在工作中：</h4>
+                    <p class="rel-text" id="workText"></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Famous People -->
+        <section class="card">
+            <h2 class="card-title">👥 代表人物</h2>
+            <div class="famous-list" id="famousList"></div>
+        </section>
+
+        <!-- Type Navigation -->
+        <section class="nav-section">
+            <h3 class="nav-title">探索其他类型</h3>
+            <div class="type-nav" id="typeNav"></div>
+        </section>
+
+        <!-- CTA -->
+        <section class="cta-section">
+            <a href="test.html" class="btn btn-primary">进行测试，发现你的人格类型</a>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>© 2024 九型人格分析 - 探索真实的自己</p>
+    </footer>
+
+    <script src="data.js"></script>
+    <script>
+        // Extended data
+        const detailData = {
+            1: {
+                growthTips: ["学会接受不完美，允许自己和他人犯错", "表达内心的愤怒和不满，不要过度压抑", "对自己宽容一些，减少自我批评", "学会灵活变通，不是所有事情都只有一种正确方式"],
+                relationship: { love: "1号在恋爱中非常忠诚和负责，但可能过于挑剔。学会欣赏伴侣的优点，接受对方的不完美，会让关系更加和谐。", work: "1号是天生的质量把控者，适合做需要精确和规则的工作。学会授权和信任团队成员，避免微观管理。" },
+                famousPeople: ["孔子", "甘地", "艾尔顿·约翰", "希拉里·克林顿"]
+            },
+            2: {
+                growthTips: ["学会说'不'，把自己的需求放在首位", "不要为了被需要而付出，学会无条件的爱", "发展独立的自我，不依赖他人的认可", "认识到自己的价值不取决于为别人做了什么"],
+                relationship: { love: "2号是非常体贴和关怀的伴侣，但要注意不要过度付出而忽视自己的需求。健康的爱情需要平等和互相支持。", work: "2号擅长建立关系和团队协作，适合做客户服务或人力资源工作。学会设定界限，避免 burnout。" },
+                famousPeople: ["特蕾莎修女", "奥普拉·温弗瑞", "多莉·帕顿", "理查德·西蒙斯"]
+            },
+            3: {
+                growthTips: ["学会面对失败，将其视为成长的机会", "关注内在价值，而不是外在的成就和形象", "允许自己脆弱，不需要时刻保持完美", "发展真实的自我，而不是适应环境的变色龙"],
+                relationship: { love: "3号在恋爱中追求成功和认可，但要记住亲密关系需要真实的情感交流，而不是表演完美的关系。", work: "3号是高效和目标导向的领导者，但要注意团队合作的重要性，不要只为了个人成功而牺牲他人。" },
+                famousPeople: ["汤姆·克鲁斯", "泰勒·斯威夫特", "奥普拉·温弗瑞", "比尔·克林顿"]
+            },
+            4: {
+                growthTips: ["学会欣赏当下的美好，不要总是追求缺失的", "接受平凡，认识到每个人都是独特的", "不要让情绪控制行为，发展情绪调节能力", "关注他人的需求，减少自我沉溺"],
+                relationship: { love: "4号在感情中追求深度和真实，但可能过于情绪化。学会在稳定中寻找美，接受关系的平凡一面。", work: "4号富有创意和审美眼光，适合艺术或创意领域。学会按时完成任务，平衡理想与现实。" },
+                famousPeople: ["梵高", "弗吉尼亚·伍尔夫", "约翰尼·德普", "王子"]
+            },
+            5: {
+                growthTips: ["学会表达情感，与他人建立深层连接", "从观察走向参与，体验生活而不仅是思考", "分享你的知识和见解，不要过度保留", "认识到情感也是一种智慧"],
+                relationship: { love: "5号需要大量的个人空间和独处时间，伴侣需要理解这一点。学会表达情感需求，让伴侣走进你的内心世界。", work: "5号擅长研究和分析，是专家型人才。学会团队合作和沟通，将你的知识转化为实际价值。" },
+                famousPeople: ["爱因斯坦", "比尔·盖茨", "蒂姆·伯顿", "简·奥斯汀"]
+            },
+            6: {
+                growthTips: ["学会信任自己和他人，减少不必要的担忧", "面对恐惧而不是逃避，勇气是实践出来的", "发展内在的安全感，不过度依赖外部确认", "认识到怀疑也是一种智慧，但不要让它控制你"],
+                relationship: { love: "6号非常忠诚和可靠，但可能过于焦虑。学会信任伴侣，不要把最坏的情况投射到关系中。", work: "6号是优秀的风险管理者和团队成员。培养自信，相信自己的判断，不要过度寻求他人的认可。" },
+                famousPeople: ["伍迪·艾伦", "梅丽尔·斯特里普", "乔治·W·布什", "黛安娜王妃"]
+            },
+            7: {
+                growthTips: ["学会面对痛苦和不适，不要一味逃避", "培养专注力，完成一件事再做下一件", "深入体验当下，而不是急于寻找下一个刺激", "认识到承诺和深度也能带来快乐"],
+                relationship: { love: "7号带来欢乐和冒险，但要注意承诺的重要性。学会在一段关系中停留，面对困难而不是逃避。", work: "7号富有创意和乐观精神，适合创业或创新领域。学会坚持完成项目，不要被新的挑战分散注意力。" },
+                famousPeople: ["罗宾·威廉姆斯", "金·凯瑞", "理查德·布兰森", "莎拉·杰西卡·帕克"]
+            },
+            8: {
+                growthTips: ["学会示弱，脆弱也是一种力量", "控制愤怒，用更温和的方式表达意见", "倾听他人的观点，你并不总是对的", "保护他人的同时也要尊重他们的自主性"],
+                relationship: { love: "8号在恋爱中非常投入和保护欲强，但可能过于控制。学会温柔和倾听，让伴侣感到平等和尊重。", work: "8号是天生的领导者，有决断力和执行力。学会授权和信任，不要事必躬亲。" },
+                famousPeople: ["马丁·路德·金", "丘吉尔", "肖恩·康纳利", "芭芭拉·史翠珊"]
+            },
+            9: {
+                growthTips: ["学会表达真实想法，不要总是迎合他人", "面对冲突，它是解决问题的必要过程", "设定优先级，专注于最重要的事情", "认识到你的存在本身就有价值"],
+                relationship: { love: "9号是非常包容和平和的伴侣，但要记得表达自己的需求和想法。避免为了和谐而压抑真实的自己。", work: "9号善于调解和团队合作，但要注意主动性和决断力。学会表达意见，参与竞争。" },
+                famousPeople: ["林肯", "奥黛丽·赫本", "华特·迪士尼", "达赖喇嘛"]
+            }
+        };
+
+        // Get type from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const typeId = parseInt(urlParams.get('id')) || 1;
+        
+        const type = enneagramData.types.find(t => t.id === typeId);
+        const details = detailData[typeId];
+
+        // Update page title
+        document.title = `${type.name} - 九型人格分析`;
+
+        // Render header
+        const header = document.getElementById('detailHeader');
+        header.style.background = `linear-gradient(135deg, ${type.color}, ${type.color}dd)`;
+        document.getElementById('headerIcon').textContent = type.icon;
+        document.getElementById('headerName').textContent = type.name;
+        document.getElementById('headerEnglish').textContent = type.englishName;
+        document.getElementById('headerNum').textContent = type.id + '号人格';
+
+        // Render overview
+        document.getElementById('overviewText').textContent = type.description;
+        const keywordsEl = document.getElementById('keywords');
+        type.keywords.forEach(kw => {
+            const span = document.createElement('span');
+            span.className = 'keyword';
+            span.style.background = type.color + '20';
+            span.style.color = type.color;
+            span.textContent = kw;
+            keywordsEl.appendChild(span);
+        });
+
+        // Render motivation
+        document.getElementById('motivationContent').textContent = type.motivation;
+
+        // Render strengths
+        const strengthsList = document.getElementById('strengthsList');
+        type.strengths.forEach(item => {
+            const li = document.createElement('li');
+            li.innerHTML = `<div class="trait-icon" style="background: #27AE6020; color: #27AE60">✓</div><span class="trait-text">${item}</span>`;
+            strengthsList.appendChild(li);
+        });
+
+        // Render weaknesses
+        const weaknessesList = document.getElementById('weaknessesList');
+        type.weaknesses.forEach(item => {
+            const li = document.createElement('li');
+            li.innerHTML = `<div class="trait-icon" style="background: #E74C3C20; color: #E74C3C">!</div><span class="trait-text">${item}</span>`;
+            weaknessesList.appendChild(li);
+        });
+
+        // Render growth tips
+        const growthTips = document.getElementById('growthTips');
+        details.growthTips.forEach((tip, index) => {
+            const item = document.createElement('div');
+            item.className = 'tip-item';
+            item.innerHTML = `
+                <div class="tip-num" style="background: ${type.color}; color: white">${index + 1}</div>
+                <span class="tip-text">${tip}</span>
+            `;
+            growthTips.appendChild(item);
+        });
+
+        // Render relationship tips
+        document.getElementById('loveText').textContent = details.relationship.love;
+        document.getElementById('workText').textContent = details.relationship.work;
+
+        // Render famous people
+        const famousList = document.getElementById('famousList');
+        details.famousPeople.forEach(person => {
+            const item = document.createElement('div');
+            item.className = 'famous-item';
+            item.textContent = person;
+            famousList.appendChild(item);
+        });
+
+        // Render type navigation
+        const typeNav = document.getElementById('typeNav');
+        enneagramData.types.forEach(t => {
+            const item = document.createElement('a');
+            item.href = `detail.html?id=${t.id}`;
+            item.className = 'nav-item';
+            if (t.id === type.id) {
+                item.classList.add('active');
+                item.style.background = t.color;
+                item.style.color = 'white';
+            }
+            item.innerHTML = `
+                <span class="nav-icon">${t.icon}</span>
+                <span class="nav-name">${t.name}</span>
+            `;
+            typeNav.appendChild(item);
+        });
+    </script>
+</body>
+</html>

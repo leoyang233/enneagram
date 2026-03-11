@@ -1,0 +1,91 @@
+/* Global Styles */
+page {
+  --primary-color: #6B5B95;
+  --secondary-color: #88B04B;
+  --accent-color: #F7CAC9;
+  --bg-color: #f5f5f5;
+  --text-color: #333333;
+  --light-text: #666666;
+  
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+.container {
+  padding: 30rpx;
+  box-sizing: border-box;
+}
+
+.card {
+  background: white;
+  border-radius: 16rpx;
+  padding: 30rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--primary-color), #8B7BB5);
+  color: white;
+  border-radius: 50rpx;
+  padding: 24rpx 60rpx;
+  font-size: 32rpx;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-primary::after {
+  border: none;
+}
+
+.btn-secondary {
+  background: white;
+  color: var(--primary-color);
+  border: 2rpx solid var(--primary-color);
+  border-radius: 50rpx;
+  padding: 22rpx 60rpx;
+  font-size: 32rpx;
+}
+
+.title {
+  font-size: 40rpx;
+  font-weight: bold;
+  color: var(--primary-color);
+  margin-bottom: 20rpx;
+}
+
+.subtitle {
+  font-size: 28rpx;
+  color: var(--light-text);
+  line-height: 1.6;
+}
+
+.type-badge {
+  display: inline-block;
+  padding: 8rpx 24rpx;
+  border-radius: 30rpx;
+  font-size: 24rpx;
+  font-weight: 500;
+}
+
+.center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.flex-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

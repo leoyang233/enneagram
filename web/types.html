@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>人格类型 - 九型人格分析</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <span class="nav-icon">🔮</span>
+            <span class="nav-title">九型人格</span>
+        </div>
+        <ul class="nav-menu">
+            <li><a href="index.html">首页</a></li>
+            <li><a href="test.html">开始测试</a></li>
+            <li><a href="types.html" class="active">人格类型</a></li>
+        </ul>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section class="header">
+            <h1 class="header-title">九型人格类型</h1>
+            <p class="header-subtitle">点击卡片查看详细解析</p>
+        </section>
+
+        <section class="type-list" id="typeList">
+            <!-- Types will be loaded by JS -->
+        </section>
+
+        <section class="cta-section">
+            <h2>还不确定自己是哪种类型？</h2>
+            <a href="test.html" class="btn btn-primary">去测试一下</a>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>© 2024 九型人格分析 - 探索真实的自己</p>
+    </footer>
+
+    <script src="data.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const typeList = document.getElementById('typeList');
+            
+            enneagramData.types.forEach(type => {
+                const card = document.createElement('a');
+                card.href = `detail.html?id=${type.id}`;
+                card.className = 'type-list-card';
+                card.style.borderLeftColor = type.color;
+                
+                card.innerHTML = `
+                    <div class="type-list-header">
+                        <div class="type-list-left">
+                            <div class="type-icon-small" style="background: ${type.color}20; color: ${type.color}">
+                                ${type.icon}
+                            </div>
+                            <div class="type-list-info">
+                                <div class="type-list-name">${type.name}</div>
+                                <div class="type-list-english">${type.englishName}</div>
+                            </div>
+                        </div>
+                        <div class="type-list-number" style="color: ${type.color}">${type.id}</div>
+                    </div>
+                    <p class="type-list-desc">${type.description}</p>
+                    <div class="type-list-keywords">
+                        ${type.keywords.map(kw => `<span class="keyword">${kw}</span>`).join('')}
+                    </div>
+                    <span class="arrow">→</span>
+                `;
+                
+                typeList.appendChild(card);
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<view class="container">
+  <view class="header">
+    <view class="header-title">九型人格类型</view>
+    <view class="header-subtitle">点击卡片查看详细解析</view>
+  </view>
+
+  <view class="type-list">
+    <view class="type-card" 
+          wx:for="{{types}}" 
+          wx:key="id" 
+          bindtap="goToDetail"
+          data-id="{{item.id}}"
+          style="border-left: 8rpx solid {{item.color}}">
+      <view class="type-main">
+        <view class="type-left">
+          <view class="type-icon" style="background: {{item.color}}20; color: {{item.color}}">
+            {{item.icon}}
+          </view>
+          <view class="type-info">
+            <view class="type-name">{{item.name}}</view>
+            <view class="type-english">{{item.englishName}}</view>
+          </view>
+        </view>
+        <view class="type-number" style="color: {{item.color}}">{{item.id}}</view>
+      </view>
+      <view class="type-desc">{{item.description}}</view>
+      <view class="type-keywords">
+        <text class="keyword" wx:for="{{item.keywords}}" wx:for-item="kw" wx:key="*this">{{kw}}</text>
+      </view>
+      <view class="arrow">→</view>
+    </view>
+  </view>
+
+  <!-- Quick Test Button -->
+  <view class="quick-test">
+    <button class="btn-primary" bindtap="startTest">
+      还不确定自己是哪种类型？去测试一下
+    </button>
+  </view>
+</view>

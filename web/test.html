@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>人格测试 - 九型人格分析</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <span class="nav-icon">🔮</span>
+            <span class="nav-title">九型人格</span>
+        </div>
+        <ul class="nav-menu">
+            <li><a href="index.html">首页</a></li>
+            <li><a href="test.html" class="active">开始测试</a></li>
+            <li><a href="types.html">人格类型</a></li>
+        </ul>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <main class="container">
+        <!-- Progress -->
+        <div class="progress-header">
+            <div class="progress-info">
+                <span class="progress-text">问题 <span id="currentNum">1</span> / <span id="totalNum">36</span></span>
+                <span class="progress-percent" id="progressPercent">3%</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill" style="width: 3%"></div>
+            </div>
+        </div>
+
+        <!-- Question Card -->
+        <div class="question-card" id="questionCard">
+            <div class="question-number" id="questionNum">Q1</div>
+            <h2 class="question-text" id="questionText">加载中...</h2>
+            
+            <div class="options">
+                <button class="option-item" data-score="5">
+                    <span class="option-radio">5</span>
+                    <span class="option-label">非常符合</span>
+                </button>
+                <button class="option-item" data-score="4">
+                    <span class="option-radio">4</span>
+                    <span class="option-label">比较符合</span>
+                </button>
+                <button class="option-item" data-score="3">
+                    <span class="option-radio">3</span>
+                    <span class="option-label">一般</span>
+                </button>
+                <button class="option-item" data-score="2">
+                    <span class="option-radio">2</span>
+                    <span class="option-label">不太符合</span>
+                </button>
+                <button class="option-item" data-score="1">
+                    <span class="option-radio">1</span>
+                    <span class="option-label">完全不符合</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="nav-buttons">
+            <button class="btn btn-secondary" id="prevBtn" disabled>上一题</button>
+            <button class="btn btn-primary" id="nextBtn" disabled>下一题</button>
+        </div>
+
+        <!-- Question Dots -->
+        <div class="question-dots" id="questionDots"></div>
+
+        <!-- Tip -->
+        <div class="tip">
+            💡 请根据你的真实感受作答，不要过度思考
+        </div>
+    </main>
+
+    <script src="data.js"></script>
+    <script>
+        // Test state
+        let currentIndex = 0;
+        let answers = {};
+        let scores = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0 };
+        const questions = enneagramData.questions;
+        const totalQuestions = questions.length;
+
+        // DOM elements
+        const currentNumEl = document.getElementById('currentNum');
+        const totalNumEl = document.getElementById('totalNum');
+        const progressPercentEl = document.getElementById('progressPercent');
+        const progressFillEl = document.getElementById('progressFill');
+        const questionNumEl = document.getElementById('questionNum');
+        const questionTextEl = document.getElementById('questionText');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const questionDotsEl = document.getElementById('questionDots');
+        const optionItems = document.querySelectorAll('.option-item');
+
+        // Initialize
+        totalNumEl.textContent = totalQuestions;
+        renderQuestionDots();
+        loadQuestion(0);
+
+        // Event listeners
+        optionItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const score = parseInt(item.dataset.score);
+                selectAnswer(score);
+            });
+        });
+
+        prevBtn.addEventListener('click', () => {
+            if (currentIndex > 0) {
+                loadQuestion(currentIndex - 1);
+            }
+        });
+
+        nextBtn.addEventListener('click', () => {
+            if (currentIndex < totalQuestions - 1) {
+                loadQuestion(currentIndex + 1);
+            } else {
+                calculateResult();
+            }
+        });
+
+        function renderQuestionDots() {
+            questionDotsEl.innerHTML = '';
+            for (let i = 0; i < totalQuestions; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'dot';
+                if (i === currentIndex) dot.classList.add('active');
+                if (answers[questions[i].id]) dot.classList.add('answered');
+                dot.addEventListener('click', () => loadQuestion(i));
+                questionDotsEl.appendChild(dot);
+            }
+        }
+
+        function loadQuestion(index) {
+            currentIndex = index;
+            const question = questions[index];
+            
+            // Update progress
+            currentNumEl.textContent = index + 1;
+            const percent = Math.round((index + 1) / totalQuestions * 100);
+            progressPercentEl.textContent = percent + '%';
+            progressFillEl.style.width = percent + '%';
+            
+            // Update question
+            questionNumEl.textContent = `Q${index + 1}`;
+            questionTextEl.textContent = question.text;
+            
+            // Update options
+            optionItems.forEach(item => {
+                item.classList.remove('selected');
+                const score = parseInt(item.dataset.score);
+                if (answers[question.id] === score) {
+                    item.classList.add('selected');
+                }
+            });
+            
+            // Update buttons
+            prevBtn.disabled = index === 0;
+            updateNextButton();
+            
+            // Update dots
+            renderQuestionDots();
+        }
+
+        function selectAnswer(score) {
+            const question = questions[currentIndex];
+            const questionId = question.id;
+            const questionType = question.type;
+            
+            // Update scores
+            if (answers[questionId]) {
+                scores[questionType] -= answers[questionId];
+            }
+            scores[questionType] += score;
+            answers[questionId] = score;
+            
+            // Update UI
+            optionItems.forEach(item => {
+                item.classList.remove('selected');
+                if (parseInt(item.dataset.score) === score) {
+                    item.classList.add('selected');
+                }
+            });
+            
+            updateNextButton();
+            renderQuestionDots();
+            
+            // Auto advance
+            setTimeout(() => {
+                if (currentIndex < totalQuestions - 1) {
+                    loadQuestion(currentIndex + 1);
+                }
+            }, 300);
+        }
+
+        function updateNextButton() {
+            const hasAnswer = answers[questions[currentIndex].id] !== undefined;
+            nextBtn.disabled = !hasAnswer;
+            nextBtn.textContent = currentIndex === totalQuestions - 1 ? '查看结果' : '下一题';
+        }
+
+        function calculateResult() {
+            // Find primary type
+            let maxScore = 0;
+            let primaryType = 1;
+            
+            for (let type in scores) {
+                if (scores[type] > maxScore) {
+                    maxScore = scores[type];
+                    primaryType = parseInt(type);
+                }
+            }
+            
+            // Calculate percentages
+            const maxPossible = 20;
+            const percentages = {};
+            for (let type in scores) {
+                percentages[type] = Math.round((scores[type] / maxPossible) * 100);
+            }
+            
+            // Find secondary type
+            let secondaryType = null;
+            let secondaryMax = 0;
+            for (let type in scores) {
+                if (parseInt(type) !== primaryType && scores[type] > secondaryMax) {
+                    secondaryMax = scores[type];
+                    secondaryType = parseInt(type);
+                }
+            }
+            
+            // Save result
+            const result = {
+                primaryType,
+                secondaryType,
+                scores,
+                percentages,
+                maxScore
+            };
+            localStorage.setItem('enneagramResult', JSON.stringify(result));
+            
+            // Navigate to result page
+            window.location.href = 'result.html';
+        }
+    </script>
+</body>
+</html>

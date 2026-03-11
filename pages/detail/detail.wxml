@@ -1,0 +1,107 @@
+<view class="container">
+  <!-- Header -->
+  <view class="detail-header" style="background: linear-gradient(135deg, {{type.color}}, {{type.color}}dd)">
+    <view class="header-content">
+      <view class="type-icon-large">{{type.icon}}</view>
+      <view class="type-name">{{type.name}}</view>
+      <view class="type-english">{{type.englishName}}</view>
+      <view class="type-num">{{type.id}}号人格</view>
+    </view>
+  </view>
+
+  <!-- Overview -->
+  <view class="card">
+    <view class="section-title">概述</view>
+    <view class="overview-text">{{type.description}}</view>
+    <view class="keywords">
+      <text class="keyword" wx:for="{{type.keywords}}" wx:key="*this" style="background: {{type.color}}20; color: {{type.color}}">{{item}}</text>
+    </view>
+  </view>
+
+  <!-- Motivation -->
+  <view class="card motivation-card">
+    <view class="section-title">💫 核心动机</view>
+    <view class="motivation-content">{{type.motivation}}</view>
+  </view>
+
+  <!-- Strengths -->
+  <view class="card">
+    <view class="section-title">✨ 核心优势</view>
+    <view class="trait-list">
+      <view class="trait-item" wx:for="{{type.strengths}}" wx:key="*this">
+        <view class="trait-icon" style="background: #27AE6020; color: #27AE60">✓</view>
+        <text class="trait-text">{{item}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- Weaknesses -->
+  <view class="card">
+    <view class="section-title">⚠️ 成长挑战</view>
+    <view class="trait-list">
+      <view class="trait-item" wx:for="{{type.weaknesses}}" wx:key="*this">
+        <view class="trait-icon" style="background: #E74C3C20; color: #E74C3C">!</view>
+        <text class="trait-text">{{item}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- Growth Tips -->
+  <view class="card growth-card">
+    <view class="section-title">🌱 成长建议</view>
+    <view class="growth-tips">
+      <view class="tip-item" wx:for="{{growthTips}}" wx:key="*this">
+        <view class="tip-num" style="background: {{type.color}}; color: white">{{index + 1}}</view>
+        <text class="tip-text">{{item}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- Relationship Tips -->
+  <view class="card">
+    <view class="section-title">💕 人际关系建议</view>
+    <view class="relationship-tips">
+      <view class="rel-section">
+        <view class="rel-title">在恋爱中：</view>
+        <view class="rel-text">{{relationship.love}}</view>
+      </view>
+      <view class="rel-section">
+        <view class="rel-title">在工作中：</view>
+        <view class="rel-text">{{relationship.work}}</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- Famous People -->
+  <view class="card">
+    <view class="section-title">👥 代表人物</view>
+    <view class="famous-list">
+      <view class="famous-item" wx:for="{{famousPeople}}" wx:key="*this">
+        {{item}}
+      </view>
+    </view>
+  </view>
+
+  <!-- Navigation -->
+  <view class="nav-section">
+    <view class="nav-title">探索其他类型</view>
+    <scroll-view class="type-nav" scroll-x>
+      <view class="nav-item {{item.id === type.id ? 'active' : ''}}" 
+            wx:for="{{allTypes}}" 
+            wx:key="id"
+            bindtap="switchType"
+            data-id="{{item.id}}"
+            style="{{item.id === type.id ? 'background: ' + item.color + '; color: white' : ''}}">
+        <text class="nav-icon">{{item.icon}}</text>
+        <text class="nav-name">{{item.name}}</text>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- Test CTA -->
+  <view class="test-cta">
+    <button class="btn-primary" bindtap="startTest">
+      进行测试，发现你的人格类型
+    </button>
+  </view>
+</view>
